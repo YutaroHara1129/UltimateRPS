@@ -135,8 +135,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Transform2Rock
+  - m_ConditionMode: 6
+    m_ConditionEvent: CurrentStateID
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 303742281674134034}
@@ -188,8 +188,8 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Transform2Rock
+  - m_ConditionMode: 6
+    m_ConditionEvent: CurrentStateID
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8704026518198529403}
@@ -315,9 +315,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Transform2Scissors
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: CurrentStateID
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1251929993021694473}
   m_Solo: 0
@@ -423,9 +423,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Transform2Paper
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: CurrentStateID
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8799270452307270780}
   m_Solo: 0
@@ -461,20 +461,8 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Transform2Rock
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: Transform2Scissors
-    m_Type: 9
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
-  - m_Name: Transform2Paper
-    m_Type: 9
+  - m_Name: CurrentStateID
+    m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -644,9 +632,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Transform2Paper
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: CurrentStateID
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7430318698582372420}
   m_Solo: 0
@@ -691,9 +679,9 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Transform2Scissors
-    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: CurrentStateID
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6826047129455904610}
   m_Solo: 0
