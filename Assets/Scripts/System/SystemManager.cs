@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPS;
 
 public class SystemManager : MonoBehaviour
 {
-    enum sign
+    public void SignChoosed(handsign choosedSign)
     {
-        rock,
-        paper,
-        scissors
-    }
-
-    public void SignSelected()
-    {
-
+        // ゆくゆくは相手の手は、他のプレイヤーの手によって決めたい
+        int opponentSign = Random.Range(0, 3);
     }
 }
