@@ -1,4 +1,5 @@
 using RPSBasic;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,13 +11,9 @@ public class MainPresenter : MonoBehaviour
 
     private void Start()
     {
-        
-    }
-    public class BasicObserver : IBasicObserver<Dictionary<handsign, int>>
-    {
-        public void OnRecieved(Dictionary<handsign, int> value)
-        {
-            _uiManager.UpdateUI(value);
-        }
+        BasicObserver<Dictionary<handsign, int>> CardsRemainObserver = new BasicObserver<Dictionary<handsign, int>>();
+        CardsRemainObserver.action = (value) => { _uiManager.UpdateUI(value); };
+
+        _systemManager.CardsRemainSubject.Subscrive(CardsRemainObserver);
     }
 }

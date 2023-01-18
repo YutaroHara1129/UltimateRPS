@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace RPSBasic
@@ -18,6 +19,14 @@ namespace RPSBasic
         void UnSubscrive(IBasicObserver<T> observer);
         void SendMessage(T value);
         void Dispose();
+    }
+    public class BasicObserver<T> : IBasicObserver<T>
+    {
+        public Action<T> action;
+        public void OnRecieved(T value)
+        {
+            action(value);
+        }
     }
     public class BasicSubject<T> : IBasicDisposable<T>
     {
