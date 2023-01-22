@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,14 @@ public class ButtonController : MonoBehaviour
 
     [SerializeField] private Sprite _idleSprite = null;
     [SerializeField] private Sprite _hoverSprite = null;
+
+    [SerializeField] private Button _button;
+    public Button Button
+    {
+        get { return _button; }
+        private set { _button = value; }
+    }
+    public TextMeshProUGUI TextMeshPro;
 
     // Null check approved or not
     private bool hasApproved = false;
@@ -29,7 +38,7 @@ public class ButtonController : MonoBehaviour
         {
             Debug.Log("Null check not approved. | Location Å® " + this);
         }
-        else
+        else if(_button.interactable == true)
         {
             if(_image.sprite == _idleSprite)
             {
@@ -39,6 +48,10 @@ public class ButtonController : MonoBehaviour
             {
                 _image.sprite = _idleSprite;
             }
+        }
+        else if (_image.sprite == _hoverSprite)
+        {
+            _image.sprite = _idleSprite;
         }
     }
 }
