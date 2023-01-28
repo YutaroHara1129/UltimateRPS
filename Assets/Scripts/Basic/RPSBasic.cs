@@ -9,6 +9,12 @@ namespace RPSBasic
         paper,
         scissors
     }
+    public enum phase
+    {
+        select,
+        battle,
+        result
+    }
 
     public interface IBasicObserver<T>{
         void OnRecieved(T value);

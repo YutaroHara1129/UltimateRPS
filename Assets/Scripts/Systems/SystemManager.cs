@@ -2,15 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPSBasic;
+using Cinemachine;
 
 public class SystemManager : MonoBehaviour
 {
+    private phase _phase;
     private handsign _ownHandSign;
     private handsign _opponentHandSign;
     private Dictionary<handsign, int> _cardsRemain = new Dictionary<handsign, int>();
     private Dictionary<handsign, int> _opponentCardsRemain = new Dictionary<handsign, int>();
     private List<handsign> _opponentCardsList = new List<handsign>();
+    // An error will occur if you don't assign it in the inspector
+    [SerializeField] private List<CinemachineVirtualCamera> _vCamList;
+    [SerializeField] private HandController _opponentHandController;
 
+    // Subjects
+    public BasicSubject<phase> PhaseSubject = new BasicSubject<phase>();
     public BasicSubject<Dictionary<handsign, int>> CardsRemainSubject = new BasicSubject<Dictionary<handsign, int>>();
 
     private void Start()
@@ -34,6 +41,31 @@ public class SystemManager : MonoBehaviour
         _opponentCardsList.Add(handsign.scissors);
     }
 
+    void BattlePhase()
+    {
+        PhaseSubject.SendMessage(phase.battle);
+
+        _vCamList[1].gameObject.SetActive(true);
+        switch (_opponentHandSign)
+        {
+            case handsign.rock:
+                _opponentHandController.SetAnimParametor(0);
+                break;
+            case handsign.paper:
+                _opponentHandController.SetAnimParametor(1);
+                break;
+            case handsign.scissors:
+                _opponentHandController.SetAnimParametor(2);
+                break;
+        }
+    }
+    void SelectPhase()
+    {
+        PhaseSubject.SendMessage(phase.select);
+
+        _vCamList[1].gameObject.SetActive(false);
+    }
+
     public void SignChoosed(int choosedSignID)
     {
         _ownHandSign = (handsign)System.Enum.ToObject(typeof(handsign), choosedSignID);
@@ -41,8 +73,9 @@ public class SystemManager : MonoBehaviour
 
         _cardsRemain[_ownHandSign]--;
         CardsRemainSubject.SendMessage(_cardsRemain);
-
         int resultID = JankenJadge(choosedSignID, (int)_opponentHandSign);
+
+        BattlePhase();
 
         switch (resultID)
         {
