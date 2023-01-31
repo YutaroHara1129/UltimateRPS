@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPSBasic;
 using Cinemachine;
+using UnityEngine.Playables;
 
 public class SystemManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class SystemManager : MonoBehaviour
     // An error will occur if you don't assign it in the inspector
     [SerializeField] private List<CinemachineVirtualCamera> _vCamList;
     [SerializeField] private HandController _opponentHandController;
+    [SerializeField] private PlayableDirector _playableDirector;
 
     // Subjects
     public BasicSubject<phase> PhaseSubject = new BasicSubject<phase>();
@@ -44,8 +46,8 @@ public class SystemManager : MonoBehaviour
     void BattlePhase()
     {
         PhaseSubject.SendMessage(phase.battle);
+        _playableDirector.Play();
 
-        _vCamList[1].gameObject.SetActive(true);
         switch (_opponentHandSign)
         {
             case handsign.rock:
@@ -62,8 +64,6 @@ public class SystemManager : MonoBehaviour
     void SelectPhase()
     {
         PhaseSubject.SendMessage(phase.select);
-
-        _vCamList[1].gameObject.SetActive(false);
     }
 
     public void SignChoosed(int choosedSignID)
