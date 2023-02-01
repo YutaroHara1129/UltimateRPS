@@ -10,4 +10,12 @@ public class HandController : MonoBehaviour
     {
         _animator.SetInteger("CurrentStateID", id);
     }
+    public void StopAnimation()
+    {
+        _animator.SetFloat("Active", 1);
+    }
+    public void ResumeAnimation()
+    {
+        _animator.SetFloat("Active", 0);
+    }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 819930135826823426}
   - component: {fileID: 6737621204609639288}
   - component: {fileID: 930630353271207441}
+  - component: {fileID: 3357316789019696046}
   m_Layer: 0
   m_Name: hand
   m_TagString: Untagged
@@ -68,6 +69,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 6737621204609639288}
+--- !u!114 &3357316789019696046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 12150367389754296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 15615ec1e0cd0894fb5fd5677b9f793f, type: 2}
+    - {fileID: 11400000, guid: 02711d8529fa2d44db732c582eade65b, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 930630353271207441}
+          m_TargetAssemblyTypeName: HandController, Assembly-CSharp
+          m_MethodName: StopAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 930630353271207441}
+          m_TargetAssemblyTypeName: HandController, Assembly-CSharp
+          m_MethodName: ResumeAnimation
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &51894750972805992
 GameObject:
   m_ObjectHideFlags: 0
