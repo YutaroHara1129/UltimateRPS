@@ -43,6 +43,21 @@ public class SystemManager : MonoBehaviour
         _opponentCardsList.Add(handsign.scissors);
     }
 
+    public void OnTimelineEnd()
+    {
+        var IsRemain = false;
+        foreach(KeyValuePair<handsign,int> kvp in _cardsRemain)
+        {
+            if (kvp.Value != 0)
+            {
+                SelectPhase();
+                IsRemain = true;
+                break;
+            }
+        }
+        if (IsRemain) return;
+        ResultPhase();
+    }
     void BattlePhase()
     {
         PhaseSubject.SendMessage(phase.battle);
@@ -61,9 +76,14 @@ public class SystemManager : MonoBehaviour
                 break;
         }
     }
-    void SelectPhase()
+
+    public void SelectPhase()
     {
         PhaseSubject.SendMessage(phase.select);
+    }
+    public void ResultPhase()
+    {
+        PhaseSubject.SendMessage(phase.result);
     }
 
     public void SignChoosed(int choosedSignID)
@@ -105,10 +125,10 @@ public class SystemManager : MonoBehaviour
         _opponentCardsRemain[sign]--;
         if (_opponentCardsRemain[sign] == 0) _opponentCardsList.Remove(sign);
         
-        foreach(KeyValuePair<handsign, int> kvp in _opponentCardsRemain)
-        {
-            Debug.Log(kvp.Key + ":" + kvp.Value);
-        }
+        // foreach(KeyValuePair<handsign, int> kvp in _opponentCardsRemain)
+        // {
+        //     Debug.Log(kvp.Key + ":" + kvp.Value);
+        // }
 
         return sign;
     }
