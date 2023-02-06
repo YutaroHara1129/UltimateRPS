@@ -9,6 +9,19 @@ namespace RPSBasic
         paper,
         scissors
     }
+    public enum result
+    {
+        win,
+        draw,
+        lose
+    }
+    public enum score
+    {
+        s,
+        a,
+        b,
+        c
+    }
     public enum phase
     {
         select,

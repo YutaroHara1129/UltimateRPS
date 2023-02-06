@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using RPSBasic;
 using Cinemachine;
-using UnityEngine.Playables;
 
 public class SystemManager : MonoBehaviour
 {
@@ -13,6 +13,12 @@ public class SystemManager : MonoBehaviour
     private Dictionary<handsign, int> _cardsRemain = new Dictionary<handsign, int>();
     private Dictionary<handsign, int> _opponentCardsRemain = new Dictionary<handsign, int>();
     private List<handsign> _opponentCardsList = new List<handsign>();
+
+    [SerializeField] private List<int> _numberOfCards = new List<int>(){3,3,3};
+    private Dictionary<result, int> _results = new Dictionary<result, int>() 
+    { { result.win, 0 }, { result.draw, 0 }, { result.lose, 0 } };
+    private int _resultParameter => _results[result.win] + _results[result.draw] + _results[result.lose];
+
     // An error will occur if you don't assign it in the inspector
     [SerializeField] private List<CinemachineVirtualCamera> _vCamList;
     [SerializeField] private HandController _opponentHandController;
@@ -21,6 +27,7 @@ public class SystemManager : MonoBehaviour
     // Subjects
     public BasicSubject<phase> PhaseSubject = new BasicSubject<phase>();
     public BasicSubject<Dictionary<handsign, int>> CardsRemainSubject = new BasicSubject<Dictionary<handsign, int>>();
+    public BasicSubject<(Dictionary<result, int>,score)> ResultsSubject = new BasicSubject<(Dictionary<result, int>, score)>();
 
     private void Start()
     {
@@ -29,18 +36,24 @@ public class SystemManager : MonoBehaviour
 
     public void GameInitialize()
     {
-        _cardsRemain[handsign.rock] = 3;
-        _cardsRemain[handsign.paper] = 3;
-        _cardsRemain[handsign.scissors] = 3;
+        _cardsRemain[handsign.rock] = _numberOfCards[0];
+        _cardsRemain[handsign.paper] = _numberOfCards[1];
+        _cardsRemain[handsign.scissors] = _numberOfCards[2];
 
-        _opponentCardsRemain[handsign.rock] = 3;
-        _opponentCardsRemain[handsign.paper] = 3;
-        _opponentCardsRemain[handsign.scissors] = 3;
+        _opponentCardsRemain[handsign.rock] = _numberOfCards[0];
+        _opponentCardsRemain[handsign.paper] = _numberOfCards[1];
+        _opponentCardsRemain[handsign.scissors] = _numberOfCards[2];
 
         _opponentCardsList.Clear();
         _opponentCardsList.Add(handsign.rock);
         _opponentCardsList.Add(handsign.paper);
         _opponentCardsList.Add(handsign.scissors);
+
+        _results[result.win] = 0;
+        _results[result.draw] = 0;
+        _results[result.lose] = 0;
+
+        CardsRemainSubject.SendMessage(_cardsRemain);
     }
 
     public void OnTimelineEnd()
@@ -83,6 +96,7 @@ public class SystemManager : MonoBehaviour
     }
     public void ResultPhase()
     {
+        ResultsSubject.SendMessage((_results , EvaluateScore()));
         PhaseSubject.SendMessage(phase.result);
     }
 
@@ -95,26 +109,22 @@ public class SystemManager : MonoBehaviour
         CardsRemainSubject.SendMessage(_cardsRemain);
         int resultID = JankenJadge(choosedSignID, (int)_opponentHandSign);
 
-        BattlePhase();
-
         switch (resultID)
         {
             case (0):
-                Debug.Log("result : draw | ChoosedSign : " + _ownHandSign
-                    + " | OpponentSign : " + _opponentHandSign);
+                _results[result.draw]++;
                 break;
             case (1):
-                Debug.Log("result : win | ChoosedSign : " + _ownHandSign
-                    + " | OpponentSign : " + _opponentHandSign);
+                _results[result.win]++;
                 break;
             case (2):
-                Debug.Log("result : defeat | ChoosedSign : " + _ownHandSign
-                    + " | OpponentSign : " + _opponentHandSign);
+                _results[result.lose]++;
                 break;
             default:
                 Debug.LogWarning("resultID is an invalid value. | value : " + resultID);
                 break;
         }
+        BattlePhase();
     }
     handsign ChooseOpponentSign()
     {
@@ -124,11 +134,6 @@ public class SystemManager : MonoBehaviour
 
         _opponentCardsRemain[sign]--;
         if (_opponentCardsRemain[sign] == 0) _opponentCardsList.Remove(sign);
-        
-        // foreach(KeyValuePair<handsign, int> kvp in _opponentCardsRemain)
-        // {
-        //     Debug.Log(kvp.Key + ":" + kvp.Value);
-        // }
 
         return sign;
     }
@@ -136,5 +141,11 @@ public class SystemManager : MonoBehaviour
     {
         // ジャンケンのアルゴリズム
         return (own - opponent + 3) % 3;
+    }
+    score EvaluateScore()
+    {
+        float _points; //[0,1]
+        _points = (_results[result.win] / _resultParameter) + (_results[result.draw] / (2 * _resultParameter));
+        return (_points < 1f / 3f) ? score.c : (_points < 2f / 3f) ? score.b : (_points < 1f) ? score.a : score.s;
     }
 }

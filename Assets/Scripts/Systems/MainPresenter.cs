@@ -1,8 +1,8 @@
-using RPSBasic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPSBasic;
 
 public class MainPresenter : MonoBehaviour
 {
@@ -18,7 +18,12 @@ public class MainPresenter : MonoBehaviour
 
         // Transfer of remaining card count information
         BasicObserver<Dictionary<handsign, int>> CardsRemainObserver = new BasicObserver<Dictionary<handsign, int>>();
-        CardsRemainObserver.action = (value) => { _uiManager.UpdateUI(value); };
+        CardsRemainObserver.action = (value) => { _uiManager.UpdateCardUI(value); };
         _systemManager.CardsRemainSubject.Subscrive(CardsRemainObserver);
+
+        // Transfer of results information
+        BasicObserver<(Dictionary<result, int>,score)> ResultsObserver = new BasicObserver<(Dictionary<result, int>, score)>();
+        ResultsObserver.action = (value) => { _uiManager.UpdateResultBoard(value); };
+        _systemManager.ResultsSubject.Subscrive(ResultsObserver);
     }
 }

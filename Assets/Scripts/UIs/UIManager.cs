@@ -1,7 +1,8 @@
-using RPSBasic;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using RPSBasic;
 using TMPro;
 
 public class UIManager : MonoBehaviour
@@ -10,8 +11,14 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _battlePhaseGroup;
     [SerializeField] private GameObject _resultPhaseGroup;
 
+    // SelectPhase
     [SerializeField] private List<ButtonController> _buttonList = new List<ButtonController>();
-    public void UpdateUI(Dictionary<handsign, int> _cardRemain)
+
+    // ResultPhase
+    [SerializeField] private List<TextMeshProUGUI> _tmpTextList = new List<TextMeshProUGUI>();
+    [SerializeField] private Image _scoreImage;
+    [SerializeField] private List<Sprite> _scoreSprites = new List<Sprite>();
+    public void UpdateCardUI(Dictionary<handsign, int> _cardRemain)
     {
         foreach (KeyValuePair<handsign,int> kvp in _cardRemain)
         {
@@ -20,6 +27,28 @@ public class UIManager : MonoBehaviour
             {
                 _buttonList[(int)kvp.Key].Button.interactable = false;
             }
+        }
+    }
+    public void UpdateResultBoard((Dictionary<result, int>,score) _results)
+    {
+        foreach (KeyValuePair<result, int> kvp in _results.Item1)
+        {
+            _tmpTextList[(int)kvp.Key].text = kvp.Value.ToString();
+        }
+        switch (_results.Item2) 
+        {
+            case score.s:
+                _scoreImage.sprite = _scoreSprites[0];
+                break;
+            case score.a:
+                _scoreImage.sprite = _scoreSprites[1];
+                break;
+            case score.b:
+                _scoreImage.sprite = _scoreSprites[2];
+                break;
+            case score.c:
+                _scoreImage.sprite = _scoreSprites[3];
+                break;
         }
     }
 
