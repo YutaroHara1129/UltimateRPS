@@ -145,7 +145,7 @@ public class SystemManager : MonoBehaviour
     score EvaluateScore()
     {
         float _points; //[0,1]
-        _points = (_results[result.win] / _resultParameter) + (_results[result.draw] / (2 * _resultParameter));
+        _points = ((float)_results[result.win] / (float)_resultParameter) + ((float)_results[result.draw] / (2 * (float)_resultParameter));
         return (_points < 1f / 3f) ? score.c : (_points < 2f / 3f) ? score.b : (_points < 1f) ? score.a : score.s;
     }
 }
