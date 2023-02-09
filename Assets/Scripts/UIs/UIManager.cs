@@ -7,9 +7,11 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _titlePhaseGroup;
     [SerializeField] private GameObject _selectPhaseGroup;
     [SerializeField] private GameObject _battlePhaseGroup;
     [SerializeField] private GameObject _resultPhaseGroup;
+    public ScreenFade ScreenFade;
 
     // SelectPhase
     [SerializeField] private List<ButtonController> _buttonList = new List<ButtonController>();
@@ -56,17 +58,26 @@ public class UIManager : MonoBehaviour
     {
         switch (_phase)
         {
+            case phase.title:
+                _titlePhaseGroup.SetActive(true);
+                _selectPhaseGroup.SetActive(false);
+                _battlePhaseGroup.SetActive(false);
+                _resultPhaseGroup.SetActive(false);
+                break;
             case phase.select:
+                _titlePhaseGroup.SetActive(false);
                 _selectPhaseGroup.SetActive(true);
                 _battlePhaseGroup.SetActive(false);
                 _resultPhaseGroup.SetActive(false);
                 break;
             case phase.battle:
+                _titlePhaseGroup.SetActive(false);
                 _selectPhaseGroup.SetActive(false);
                 _battlePhaseGroup.SetActive(true);
                 _resultPhaseGroup.SetActive(false);
                 break;
             case phase.result:
+                _titlePhaseGroup.SetActive(false);
                 _selectPhaseGroup.SetActive(false);
                 _battlePhaseGroup.SetActive(false);
                 _resultPhaseGroup.SetActive(true);

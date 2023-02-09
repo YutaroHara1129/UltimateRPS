@@ -25,5 +25,10 @@ public class MainPresenter : MonoBehaviour
         BasicObserver<(Dictionary<result, int>,score)> ResultsObserver = new BasicObserver<(Dictionary<result, int>, score)>();
         ResultsObserver.action = (value) => { _uiManager.UpdateResultBoard(value); };
         _systemManager.ResultsSubject.Subscrive(ResultsObserver);
+
+        // Transfer of effect activation request
+        BasicObserver EffectRequestObserver = new BasicObserver();
+        EffectRequestObserver.action = _uiManager.ScreenFade.AutoFade;
+        _systemManager.EffectRequestSubject.Subscrive(EffectRequestObserver);
     }
 }

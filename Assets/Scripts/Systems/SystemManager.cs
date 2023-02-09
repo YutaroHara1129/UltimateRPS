@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Playables;
 using RPSBasic;
@@ -7,7 +8,9 @@ using Cinemachine;
 
 public class SystemManager : MonoBehaviour
 {
-    private phase _phase;
+    public bool isUserActionEnabled = false;
+
+    private phase _phase = phase.title;
     private handsign _ownHandSign;
     private handsign _opponentHandSign;
     private Dictionary<handsign, int> _cardsRemain = new Dictionary<handsign, int>();
@@ -28,10 +31,15 @@ public class SystemManager : MonoBehaviour
     public BasicSubject<phase> PhaseSubject = new BasicSubject<phase>();
     public BasicSubject<Dictionary<handsign, int>> CardsRemainSubject = new BasicSubject<Dictionary<handsign, int>>();
     public BasicSubject<(Dictionary<result, int>,score)> ResultsSubject = new BasicSubject<(Dictionary<result, int>, score)>();
+    public BasicSubject EffectRequestSubject = new BasicSubject();
 
     private void Start()
     {
         GameInitialize();
+    }
+    private void Update()
+    {
+        TitlePhase();
     }
 
     public void GameInitialize()
@@ -55,6 +63,10 @@ public class SystemManager : MonoBehaviour
 
         CardsRemainSubject.SendMessage(_cardsRemain);
     }
+    public void ManageUserAction(bool permit)
+    {
+        isUserActionEnabled = permit;
+    }
 
     public void OnTimelineEnd()
     {
@@ -63,16 +75,33 @@ public class SystemManager : MonoBehaviour
         {
             if (kvp.Value != 0)
             {
+                _phase = phase.select;
                 SelectPhase();
                 IsRemain = true;
                 break;
             }
         }
         if (IsRemain) return;
+        _phase = phase.result;
         ResultPhase();
     }
+
+    async void TitlePhase()
+    {
+        if (_phase == phase.title && isUserActionEnabled && Input.anyKeyDown)
+        {
+            ManageUserAction(false);
+            EffectRequestSubject.SendMessage();
+            await Task.Delay(1000);
+            _phase = phase.select;
+            PhaseSubject.SendMessage(phase.select);
+        }
+        return;
+    }
+
     void BattlePhase()
     {
+        _phase = phase.battle;
         PhaseSubject.SendMessage(phase.battle);
         _playableDirector.Play();
 

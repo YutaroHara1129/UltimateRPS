@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -16,5 +17,12 @@ public class ScreenFade : MonoBehaviour
     public void FadeOut()
     {
         _image.DOFade(0f, 1f).SetEase(Ease.InCubic);
+    }
+    async public void AutoFade()
+    {
+        FadeIn();
+        await Task.Delay(1000);
+        FadeOut();
+        return;
     }
 }
