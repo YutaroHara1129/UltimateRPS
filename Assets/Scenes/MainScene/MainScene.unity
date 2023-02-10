@@ -987,7 +987,7 @@ PlayableDirector:
     value: {fileID: 175040346}
   - key: {fileID: 4738001065099496782, guid: 800c6df21dda17a408b14dab55aeb87d, type: 2}
     value: {fileID: 2035666716}
-  - key: {fileID: 1977079682489030819, guid: 800c6df21dda17a408b14dab55aeb87d, type: 2}
+  - key: {fileID: 2946288093302124836, guid: 800c6df21dda17a408b14dab55aeb87d, type: 2}
     value: {fileID: 1266689566}
   m_ExposedReferences:
     m_References: []
@@ -1069,8 +1069,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.11939876, y: -0.0018185169, z: 0.00021869346, w: 0.9928447}
-  m_LocalPosition: {x: 47.966526, y: 12.063875, z: -12.73553}
+  m_LocalRotation: {x: 0.11940155, y: -0.0019609204, z: 0.00023582442, w: 0.9928441}
+  m_LocalPosition: {x: 47.969315, y: 12.0639305, z: -12.735506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3474,8 +3474,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108248408}
-  m_LocalRotation: {x: 0.18910728, y: -0.0012402406, z: 0.0002388484, w: 0.98195565}
-  m_LocalPosition: {x: 30.051697, y: 15.999965, z: -14.999924}
+  m_LocalRotation: {x: 0.1891073, y: -0.0012234008, z: 0.00023560536, w: 0.98195565}
+  m_LocalPosition: {x: 30.051697, y: 15.999956, z: -14.999927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4467,19 +4467,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Events:
     m_Signals:
-    - {fileID: 11400000, guid: 3642888ee6e115544b565289ed2a1f14, type: 2}
-    - {fileID: 11400000, guid: 679bd0783ab724647985c64470d4e861, type: 2}
+    - {fileID: 11400000, guid: b66b12dd084cd403d88202197bec1f7d, type: 2}
+    - {fileID: 11400000, guid: c1ccbb3e2d6b84255abf2e18959e064d, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1266689563}
           m_TargetAssemblyTypeName: ScreenFade, Assembly-CSharp
-          m_MethodName: FadeOut
-          m_Mode: 1
+          m_MethodName: AutoFade
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 500
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -4488,8 +4488,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1266689563}
           m_TargetAssemblyTypeName: ScreenFade, Assembly-CSharp
-          m_MethodName: FadeOut
-          m_Mode: 1
+          m_MethodName: AutoFade
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4772,8 +4772,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379066938}
-  m_LocalRotation: {x: 0.11939876, y: -0.0018185169, z: 0.00021869346, w: 0.9928447}
-  m_LocalPosition: {x: 47.966526, y: 12.063875, z: -12.73553}
+  m_LocalRotation: {x: 0.11940155, y: -0.0019609204, z: 0.00023582442, w: 0.9928441}
+  m_LocalPosition: {x: 47.969315, y: 12.0639305, z: -12.735506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6614,12 +6614,12 @@ PrefabInstance:
     - target: {fileID: 3948565489022917231, guid: eda6de693920648f78ae48e21ecdcbdb,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99838895
+      value: 0.9983889
       objectReference: {fileID: 0}
     - target: {fileID: 3948565489022917231, guid: eda6de693920648f78ae48e21ecdcbdb,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000116759526
+      value: 0.00011675952
       objectReference: {fileID: 0}
     - target: {fileID: 6021557096946382058, guid: eda6de693920648f78ae48e21ecdcbdb,
         type: 3}

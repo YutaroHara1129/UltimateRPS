@@ -1,12 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Playables;
 using RPSBasic;
 using Cinemachine;
 
-public class SystemManager : MonoBehaviour
+public class SystemManager : MonoBehaviour, IDisposable
 {
     public bool isUserActionEnabled = false;
 
@@ -33,13 +35,24 @@ public class SystemManager : MonoBehaviour
     public BasicSubject<(Dictionary<result, int>,score)> ResultsSubject = new BasicSubject<(Dictionary<result, int>, score)>();
     public BasicSubject EffectRequestSubject = new BasicSubject();
 
+    // Token
+    private CancellationTokenSource _cancellationTokenSource =
+        new CancellationTokenSource();
+    private CancellationToken _token;
+
     private void Start()
     {
         GameInitialize();
     }
     private void Update()
     {
-        TitlePhase();
+        if (_phase == phase.title && isUserActionEnabled && Input.anyKeyDown)
+        {
+            if(_token.CanBeCanceled)Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+            _token = _cancellationTokenSource.Token;
+            _ = TitlePhaseAsync(_token);
+        }
     }
 
     public void GameInitialize()
@@ -86,17 +99,13 @@ public class SystemManager : MonoBehaviour
         ResultPhase();
     }
 
-    async void TitlePhase()
+    async Task TitlePhaseAsync(CancellationToken token)
     {
-        if (_phase == phase.title && isUserActionEnabled && Input.anyKeyDown)
-        {
-            ManageUserAction(false);
-            EffectRequestSubject.SendMessage();
-            await Task.Delay(1000);
-            _phase = phase.select;
-            PhaseSubject.SendMessage(phase.select);
-        }
-        return;
+         ManageUserAction(false);
+         EffectRequestSubject.SendMessage();
+         await Task.Delay(1000,token);
+         _phase = phase.select;
+         PhaseSubject.SendMessage(phase.select);
     }
 
     void BattlePhase()
@@ -176,5 +185,11 @@ public class SystemManager : MonoBehaviour
         float _points; //[0,1]
         _points = ((float)_results[result.win] / (float)_resultParameter) + ((float)_results[result.draw] / (2 * (float)_resultParameter));
         return (_points < 1f / 3f) ? score.c : (_points < 2f / 3f) ? score.b : (_points < 1f) ? score.a : score.s;
+    }
+
+    public void Dispose()
+    {
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource.Dispose();
     }
 }

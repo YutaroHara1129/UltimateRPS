@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,7 +27,7 @@ public class MainPresenter : MonoBehaviour
 
         // Transfer of effect activation request
         BasicObserver EffectRequestObserver = new BasicObserver();
-        EffectRequestObserver.action = _uiManager.ScreenFade.AutoFade;
+        EffectRequestObserver.action = () => { _uiManager.ScreenFade.AutoFade(); };
         _systemManager.EffectRequestSubject.Subscrive(EffectRequestObserver);
     }
 }
