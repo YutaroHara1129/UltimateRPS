@@ -7,6 +7,7 @@ public class MainPresenter : MonoBehaviour
 {
     [SerializeField] private SystemManager _systemManager;
     [SerializeField] protected UIManager _uiManager;
+    [SerializeField] private SoundEffectController _SystemSEController;
 
     private void Start()
     {
@@ -29,5 +30,10 @@ public class MainPresenter : MonoBehaviour
         BasicObserver EffectRequestObserver = new BasicObserver();
         EffectRequestObserver.action = () => { _uiManager.ScreenFade.AutoFade(); };
         _systemManager.EffectRequestSubject.Subscrive(EffectRequestObserver);
+
+        // Transfer of system SE request
+        BasicObserver<int> SystemSERequestObserver = new BasicObserver<int>();
+        SystemSERequestObserver.action = (value) => { _SystemSEController.PlayAudioOneShot(value); };
+        _systemManager.SystemSERequestSubject.Subscrive(SystemSERequestObserver);
     }
 }

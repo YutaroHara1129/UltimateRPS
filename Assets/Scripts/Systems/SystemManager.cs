@@ -26,6 +26,7 @@ public class SystemManager : MonoBehaviour, IDisposable
 
     // An error will occur if you don't assign it in the inspector
     [SerializeField] private List<CinemachineVirtualCamera> _vCamList;
+    [SerializeField] private HandController _ownHandController;
     [SerializeField] private HandController _opponentHandController;
     [SerializeField] private PlayableDirector _playableDirector;
 
@@ -34,6 +35,7 @@ public class SystemManager : MonoBehaviour, IDisposable
     public BasicSubject<Dictionary<handsign, int>> CardsRemainSubject = new BasicSubject<Dictionary<handsign, int>>();
     public BasicSubject<(Dictionary<result, int>,score)> ResultsSubject = new BasicSubject<(Dictionary<result, int>, score)>();
     public BasicSubject EffectRequestSubject = new BasicSubject();
+    public BasicSubject<int> SystemSERequestSubject = new BasicSubject<int>();
 
     // Token
     private CancellationTokenSource _cancellationTokenSource =
@@ -48,6 +50,7 @@ public class SystemManager : MonoBehaviour, IDisposable
     {
         if (_phase == phase.title && isUserActionEnabled && Input.anyKeyDown)
         {
+            SystemSERequestSubject.SendMessage(0);
             if(_token.CanBeCanceled)Dispose();
             _cancellationTokenSource = new CancellationTokenSource();
             _token = _cancellationTokenSource.Token;
@@ -142,6 +145,9 @@ public class SystemManager : MonoBehaviour, IDisposable
     {
         _ownHandSign = (handsign)System.Enum.ToObject(typeof(handsign), choosedSignID);
         _opponentHandSign = ChooseOpponentSign();
+
+        _ownHandController.HandSign = _ownHandSign;
+        _opponentHandController.HandSign = _opponentHandSign;
 
         _cardsRemain[_ownHandSign]--;
         CardsRemainSubject.SendMessage(_cardsRemain);
