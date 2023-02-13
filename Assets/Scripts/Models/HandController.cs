@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPSBasic;
+using UnityEngine.VFX;
 
 public class HandController : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private SoundEffectController _soundEffectController;
     public handsign HandSign = handsign.rock;
+    [SerializeField] private VisualEffect _visualEffect;
+    public SkinnedMeshRenderer SkinnedMeshRenderer;
 
     public void SetAnimParametor(int id)
     {
@@ -39,5 +42,13 @@ public class HandController : MonoBehaviour
                 _soundEffectController.PlayAudioOneShot(2);
                 break;
         }
+    }
+    public void PlaySE_Impact()
+    {
+        _soundEffectController.PlayAudioOneShot(4);
+    }
+    public void DefeatVFX()
+    {
+        _visualEffect.Play();
     }
 }

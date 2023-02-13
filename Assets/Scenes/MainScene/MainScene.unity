@@ -302,6 +302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 138401953}
   - component: {fileID: 138401954}
+  - component: {fileID: 138401956}
   - component: {fileID: 138401955}
   m_Layer: 0
   m_Name: HandsGroup
@@ -390,23 +391,12 @@ MonoBehaviour:
     m_Signals:
     - {fileID: 11400000, guid: f9529d0bd2ac44393a266bb968b7e682, type: 2}
     - {fileID: 11400000, guid: 0605814a4c94144a78285e10ad85ba6c, type: 2}
+    - {fileID: 11400000, guid: cb487db1e78054f1ba9ff8cba33d4da6, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 827754989}
-          m_TargetAssemblyTypeName: HandController, Assembly-CSharp
-          m_MethodName: PlaySE_Wind
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 1009838272}
-          m_TargetAssemblyTypeName: HandController, Assembly-CSharp
+        - m_Target: {fileID: 138401956}
+          m_TargetAssemblyTypeName: HandGroupController, Assembly-CSharp
           m_MethodName: PlaySE_Wind
           m_Mode: 1
           m_Arguments:
@@ -419,8 +409,8 @@ MonoBehaviour:
           m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 827754989}
-          m_TargetAssemblyTypeName: HandController, Assembly-CSharp
+        - m_Target: {fileID: 138401956}
+          m_TargetAssemblyTypeName: HandGroupController, Assembly-CSharp
           m_MethodName: PlaySE_Signature
           m_Mode: 1
           m_Arguments:
@@ -431,9 +421,11 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 1009838272}
-          m_TargetAssemblyTypeName: HandController, Assembly-CSharp
-          m_MethodName: PlaySE_Signature
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 138401956}
+          m_TargetAssemblyTypeName: HandGroupController, Assembly-CSharp
+          m_MethodName: PlayVFX_Defeat
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -443,6 +435,21 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &138401956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138401952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58b5a092a66cc4c20a580ec463d9580f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ownHandController: {fileID: 827754989}
+  _opponentHandController: {fileID: 1009838272}
+  Result: 0
 --- !u!1 &175040342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,8 +1148,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.11939876, y: -0.0018185176, z: 0.00021869355, w: 0.9928447}
-  m_LocalPosition: {x: 47.966526, y: 12.063875, z: -12.73553}
+  m_LocalRotation: {x: 0.11939533, y: -0.0017109269, z: 0.00020574876, w: 0.9928453}
+  m_LocalPosition: {x: 47.96442, y: 12.0638075, z: -12.735554}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3567,8 +3574,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108248408}
-  m_LocalRotation: {x: 0.18910728, y: -0.0012234007, z: 0.00023560537, w: 0.9819557}
-  m_LocalPosition: {x: 30.051697, y: 15.999966, z: -14.999925}
+  m_LocalRotation: {x: 0.1891073, y: -0.0012234008, z: 0.00023560536, w: 0.98195565}
+  m_LocalPosition: {x: 30.051697, y: 15.999956, z: -14.999927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4877,8 +4884,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1379066938}
-  m_LocalRotation: {x: 0.11939876, y: -0.0018185176, z: 0.00021869355, w: 0.9928447}
-  m_LocalPosition: {x: 47.966526, y: 12.063875, z: -12.73553}
+  m_LocalRotation: {x: 0.11939533, y: -0.0017109269, z: 0.00020574876, w: 0.9928453}
+  m_LocalPosition: {x: 47.96442, y: 12.0638075, z: -12.735554}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6401,6 +6408,7 @@ MonoBehaviour:
   - {fileID: 360908475}
   _ownHandController: {fileID: 827754989}
   _opponentHandController: {fileID: 1009838272}
+  _handGroupController: {fileID: 138401956}
   _playableDirector: {fileID: 138401954}
 --- !u!114 &2035666716
 MonoBehaviour:
@@ -6817,6 +6825,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Events.m_Events.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745944596716843480, guid: 62851020f769a40a5a5fdbd4bc17e1db,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745944596716843480, guid: 62851020f769a40a5a5fdbd4bc17e1db,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745944596716843480, guid: 62851020f769a40a5a5fdbd4bc17e1db,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.37
       objectReference: {fileID: 0}
     - target: {fileID: 5379545359503403471, guid: 62851020f769a40a5a5fdbd4bc17e1db,
         type: 3}

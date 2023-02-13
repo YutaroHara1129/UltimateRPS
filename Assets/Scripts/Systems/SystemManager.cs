@@ -28,6 +28,7 @@ public class SystemManager : MonoBehaviour, IDisposable
     [SerializeField] private List<CinemachineVirtualCamera> _vCamList;
     [SerializeField] private HandController _ownHandController;
     [SerializeField] private HandController _opponentHandController;
+    [SerializeField] private HandGroupController _handGroupController;
     [SerializeField] private PlayableDirector _playableDirector;
 
     // Subjects
@@ -157,12 +158,15 @@ public class SystemManager : MonoBehaviour, IDisposable
         {
             case (0):
                 _results[result.draw]++;
+                _handGroupController.Result = result.draw;
                 break;
             case (1):
                 _results[result.win]++;
+                _handGroupController.Result = result.win;
                 break;
             case (2):
                 _results[result.lose]++;
+                _handGroupController.Result = result.lose;
                 break;
             default:
                 Debug.LogWarning("resultID is an invalid value. | value : " + resultID);
