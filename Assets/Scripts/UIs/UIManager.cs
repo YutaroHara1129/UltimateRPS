@@ -29,6 +29,10 @@ public class UIManager : MonoBehaviour
             {
                 _buttonList[(int)kvp.Key].Button.interactable = false;
             }
+            else
+            {
+                _buttonList[(int)kvp.Key].Button.interactable = true;
+            }
         }
     }
     public void UpdateResultBoard((Dictionary<result, int>,score) _results)

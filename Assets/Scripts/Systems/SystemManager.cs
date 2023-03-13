@@ -57,6 +57,15 @@ public class SystemManager : MonoBehaviour, IDisposable
             _token = _cancellationTokenSource.Token;
             _ = TitlePhaseAsync(_token);
         }
+        else if (_phase == phase.result && isUserActionEnabled && Input.anyKeyDown)
+        {
+            GameInitialize();
+            SystemSERequestSubject.SendMessage(0);
+            if (_token.CanBeCanceled) Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+            _token = _cancellationTokenSource.Token;
+            _ = TitlePhaseAsync(_token);
+        }
     }
 
     public void GameInitialize()
@@ -140,6 +149,7 @@ public class SystemManager : MonoBehaviour, IDisposable
     {
         ResultsSubject.SendMessage((_results , EvaluateScore()));
         PhaseSubject.SendMessage(phase.result);
+        ManageUserAction(true);
     }
 
     public void SignChoosed(int choosedSignID)
